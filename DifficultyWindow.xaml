@@ -1,0 +1,35 @@
+﻿<Window x:Class="Snek.DifficultyWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Difficulty" Height="200" Width="300"
+        MaxHeight="200" MaxWidth="300" MinHeight="200" MinWidth="300"
+        WindowStartupLocation="CenterOwner">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        
+        <TextBlock Name="TextBoxInfo" Text="Choose your difficulty:"
+                   Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3"
+                   TextAlignment="Center" VerticalAlignment="Center"/>
+
+        <Button Name="ButtonEasy" Content="Easy" 
+                Grid.Column="0" Grid.Row="1" Margin="10"
+                Click="ButtonEasy_Click"/>
+
+        <Button Name="ButtonMedium" Content="Medium" 
+                Grid.Column="1" Grid.Row="1" Margin="10"
+                Click="ButtonMedium_Click"/>
+
+        <Button Name="ButtonHard" Content="Hard" 
+                Grid.Column="2" Grid.Row="1" Margin="10"
+                Click="ButtonHard_Click"/>
+
+    </Grid>
+</Window>
