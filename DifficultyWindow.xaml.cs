@@ -22,16 +22,23 @@ namespace Snek {
             InitializeComponent();
         }
 
+        private void StartGame(double d) {
+            SnekType.Difficulty = d;
+            MainWindow Main = new MainWindow();
+            Main.Show();
+            this.Close();
+        }
+
         private void ButtonEasy_Click(object sender, RoutedEventArgs e) {
-            
+            StartGame(0.15);
         }
 
         private void ButtonMedium_Click(object sender, RoutedEventArgs e) {
-
+            StartGame(0.1);
         }
 
         private void ButtonHard_Click(object sender, RoutedEventArgs e) {
-
+            StartGame(0.05);
         }
     }
 }

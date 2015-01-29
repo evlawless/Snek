@@ -22,30 +22,26 @@ namespace Snek {
     public partial class MainWindow : Window {
         public MainWindow() {
             InitializeComponent();
+            SnekType.Direction = 's';
 
-            Dispatcher.Invoke(SnekTime);
+            Dispatcher.Invoke(TimerSnek);
+
         }
 
-
-        public char SnekDirection = 's';
-        int CurrentRow;
-        int CurrentCol;
-
-        public void SnekTime() {
+        private void TimerSnek() {
             DispatcherTimer SnekTimer = new DispatcherTimer();
 
-            SnekTimer.Interval = TimeSpan.FromSeconds(.1);
+            SnekTimer.Interval = TimeSpan.FromSeconds(SnekType.Difficulty);
 
             SnekTimer.Tick += MoveSnek;
             SnekTimer.Start();
         }
 
-        public void MoveSnek(Object source, EventArgs e) {
+        private void MoveSnek(Object source, EventArgs e) {
+            int CurrentRow = (int)Pixel.GetValue(Grid.RowProperty);
+            int CurrentCol = (int)Pixel.GetValue(Grid.ColumnProperty);
 
-            CurrentRow = (int)Pixel.GetValue(Grid.RowProperty);
-            CurrentCol = (int)Pixel.GetValue(Grid.ColumnProperty);
-
-            switch (SnekDirection) {
+            switch (SnekType.Direction) {
 
                 case 's':
                     break;
@@ -53,55 +49,69 @@ namespace Snek {
                     if (CurrentRow != 0) {
                         Pixel.SetValue(Grid.RowProperty, (CurrentRow - 1));
                     }
+                    else {
+                        MessageBox.Show("You failed!", "Great Job Idiot", MessageBoxButton.OK);
+                        this.Close();
+                    }
                     break;
                 case 'd':
-                    if (CurrentRow != 20) {
+                    if (CurrentRow != 21) {
                         Pixel.SetValue(Grid.RowProperty, (CurrentRow + 1));
+                    }
+                    else {
+                        MessageBox.Show("You failed!", "Great Job Idiot", MessageBoxButton.OK);
+                        this.Close();
                     }
                     break;
                 case 'l':
                     if (CurrentCol != 0) {
                         Pixel.SetValue(Grid.ColumnProperty, (CurrentCol - 1));
                     }
+                    else {
+                        MessageBox.Show("You failed!", "Great Job Idiot", MessageBoxButton.OK);
+                        this.Close();
+                    }
                     break;
                 case 'r':
-                    if (CurrentRow != 20) {
+                    if (CurrentCol != 29) {
                         Pixel.SetValue(Grid.ColumnProperty, (CurrentCol + 1));
+                    }
+                    else {
+                        MessageBox.Show("You failed!","Great Job Idiot",MessageBoxButton.OK);
+                        this.Close();
                     }
                     break;
             }
         }
 
         private void Window_KeyDown(object sender, KeyEventArgs e) {
-
             switch (e.Key) {
 
                 case Key.Left:
-                    SnekDirection = 'l';
+                    if (SnekType.Direction != 'r') {
+                        SnekType.Direction = 'l';
+                    }
                     break;
                 case Key.Right:
-                    SnekDirection = 'r';
+                    if (SnekType.Direction != 'l') {
+                        SnekType.Direction = 'r';
+                    }
                     break;
                 case Key.Up:
-                    SnekDirection = 'u';
+                    if (SnekType.Direction != 'd') {
+                        SnekType.Direction = 'u';
+                    }
                     break;
                 case Key.Down:
-                    SnekDirection = 'd';
-                    break;
-                case Key.F5:
-                    MainWindow M = new MainWindow();
-                    M.Show();
-                    this.Close();
+                    if (SnekType.Direction != 'u') {
+                        SnekType.Direction = 'd';
+                    }
                     break;
                 default:
                     break;
 
 
             }
-
-
         }
-
-
     }
 }
