@@ -23,9 +23,22 @@ namespace Snek {
         public MainWindow() {
             InitializeComponent();
             SnekType.Direction = 's';
-
+            SnekType.CoordList.Add(new Coord(14, 10));
+            SnekType.RandGoal();                        
             Dispatcher.Invoke(TimerSnek);
 
+        }
+
+        private void CheckCollide() {
+            List<Coord> SnekCells = new List<Coord>(SnekType.CoordList);
+            Coord LeadCell = SnekCells[0];
+            SnekCells.RemoveAt(0);
+            foreach (Coord c in SnekCells) {
+                if (LeadCell.Row == c.Row && LeadCell.Col == c.Col) {
+                    MessageBox.Show("You lose, Dingus!");
+                    this.Close();
+                }
+            }
         }
 
         private void TimerSnek() {
@@ -33,55 +46,43 @@ namespace Snek {
 
             SnekTimer.Interval = TimeSpan.FromSeconds(SnekType.Difficulty);
 
-            SnekTimer.Tick += MoveSnek;
+            SnekTimer.Tick += DrawSnek;
             SnekTimer.Start();
         }
 
-        private void MoveSnek(Object source, EventArgs e) {
-            int CurrentRow = (int)Pixel.GetValue(Grid.RowProperty);
-            int CurrentCol = (int)Pixel.GetValue(Grid.ColumnProperty);
+        public void DrawSnek(Object sender, EventArgs e) {
 
-            switch (SnekType.Direction) {
+            SnekType.MoveSnek();
+            List<Coord> CellList = new List<Coord>(SnekType.CoordList);
+            
 
-                case 's':
-                    break;
-                case 'u':
-                    if (CurrentRow != 0) {
-                        Pixel.SetValue(Grid.RowProperty, (CurrentRow - 1));
-                    }
-                    else {
-                        MessageBox.Show("You failed!", "Great Job Idiot", MessageBoxButton.OK);
-                        this.Close();
-                    }
-                    break;
-                case 'd':
-                    if (CurrentRow != 21) {
-                        Pixel.SetValue(Grid.RowProperty, (CurrentRow + 1));
-                    }
-                    else {
-                        MessageBox.Show("You failed!", "Great Job Idiot", MessageBoxButton.OK);
-                        this.Close();
-                    }
-                    break;
-                case 'l':
-                    if (CurrentCol != 0) {
-                        Pixel.SetValue(Grid.ColumnProperty, (CurrentCol - 1));
-                    }
-                    else {
-                        MessageBox.Show("You failed!", "Great Job Idiot", MessageBoxButton.OK);
-                        this.Close();
-                    }
-                    break;
-                case 'r':
-                    if (CurrentCol != 29) {
-                        Pixel.SetValue(Grid.ColumnProperty, (CurrentCol + 1));
-                    }
-                    else {
-                        MessageBox.Show("You failed!","Great Job Idiot",MessageBoxButton.OK);
-                        this.Close();
-                    }
-                    break;
+            if (CellList[0].Row == -1 || CellList[0].Row == 21 || CellList[0].Col == -1 || CellList[0].Col == 29) {
+                MessageBox.Show("You lose, dingus!");
+                this.Close();
+                return;
             }
+
+            if (CellList[0].Row == SnekType.GoalCell.Row && CellList[0].Col == SnekType.GoalCell.Col) {
+                SnekType.AddCells += 3;
+                SnekType.RandGoal();
+            }
+
+            MainGrid.Children.Clear();
+            CheckCollide();
+
+            foreach (Coord c in CellList) {
+                Rectangle x = new Rectangle();
+                x.SetValue(Grid.RowProperty, c.Row);
+                x.SetValue(Grid.ColumnProperty, c.Col);
+                x.Fill = new SolidColorBrush(Colors.Red);
+                MainGrid.Children.Add(x);
+            }
+
+            Rectangle Goal = new Rectangle();
+            Goal.SetValue(Grid.RowProperty, SnekType.GoalCell.Row);
+            Goal.SetValue(Grid.ColumnProperty, SnekType.GoalCell.Col);
+            Goal.Fill = new SolidColorBrush(Colors.Blue);
+            MainGrid.Children.Add(Goal);
         }
 
         private void Window_KeyDown(object sender, KeyEventArgs e) {

@@ -8,62 +8,62 @@
     <Grid Name="MainGrid">
         <Grid.RowDefinitions>
             <RowDefinition/>
-            
+
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
-            
+
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
-            
+
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
-            
+
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
-            
+
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition/>
             <ColumnDefinition/>
             <ColumnDefinition/>
-            
+
             <ColumnDefinition/>
             <ColumnDefinition/>
             <ColumnDefinition/>
             <ColumnDefinition/>
             <ColumnDefinition/>
-            
+
             <ColumnDefinition/>
             <ColumnDefinition/>
             <ColumnDefinition/>
             <ColumnDefinition/>
             <ColumnDefinition/>
-            
+
             <ColumnDefinition/>
             <ColumnDefinition/>
             <ColumnDefinition/>
             <ColumnDefinition/>
             <ColumnDefinition/>
-            
+
             <ColumnDefinition/>
             <ColumnDefinition/>
             <ColumnDefinition/>
             <ColumnDefinition/>
             <ColumnDefinition/>
-           
+
             <ColumnDefinition/>
             <ColumnDefinition/>
             <ColumnDefinition/>
@@ -71,14 +71,10 @@
             <ColumnDefinition/>
 
         </Grid.ColumnDefinitions>
-        
-        
 
-        <TextBlock Name="Pixel"
-            Background="Red" 
-                Grid.Column="14" Grid.Row="10" Height="25"
-                VerticalAlignment="Bottom"/>
 
+
+      
 
     </Grid>
 </Window>
